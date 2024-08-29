@@ -1,10 +1,10 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
 
-const order = require('./order');
-const product = require('./product');
+const Order = require('./order');
+const Product = require('./product');
 
-const orderdetails = sequelize.define('orderdetails', {
+const OrderDetails = sequelize.define('OrderDetails', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -13,7 +13,7 @@ const orderdetails = sequelize.define('orderdetails', {
   orderId: {
     type: DataTypes.INTEGER,
     references: {
-      model: order,
+      model: Order,
       key: 'id',
     },
     onDelete: 'SET NULL',
@@ -22,7 +22,7 @@ const orderdetails = sequelize.define('orderdetails', {
   productId: {
     type: DataTypes.INTEGER,
     references: {
-      model: product,
+      model: Product,
       key: 'productId',  
     },
     onDelete: 'SET NULL',
@@ -45,10 +45,10 @@ const orderdetails = sequelize.define('orderdetails', {
 });
 
 // Associations
-order.hasMany(orderdetails, { foreignKey: 'orderId' });
-orderdetails.belongsTo(order, { foreignKey: 'orderId' });
+Order.hasMany(OrderDetails, { foreignKey: 'orderId' });
+OrderDetails.belongsTo(Order, { foreignKey: 'orderId' });
 
-product.hasMany(orderdetails, { foreignKey: 'productId' });
-orderdetails.belongsTo(product, { foreignKey: 'productId' });
+Product.hasMany(OrderDetails, { foreignKey: 'productId' });
+OrderDetails.belongsTo(Product, { foreignKey: 'productId' });
 
-module.exports = orderdetails;
+module.exports = OrderDetails;
