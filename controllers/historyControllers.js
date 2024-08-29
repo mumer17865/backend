@@ -1,5 +1,5 @@
 const sequelize = require('../sequelize');
-const OrderDetails = require('../models/orderDetails');
+const OrderDetails = require('../models/orderdetails');
 const getHistory = (req, res) => {
 
   sequelize.query(
