@@ -1,20 +1,20 @@
 const sequelize = require('../sequelize');
-const orderDetails = require('../models/orderDetails');
+const orderdetails = require('../models/orderdetails');
 const getHistory = (req, res) => {
 
   sequelize.query(
     `SELECT 
-        orderDetails.*, 
+        orderdetails.*, 
         products.image, 
         products.productName
      FROM 
-        orderDetails
+        orderdetails
      INNER JOIN 
         products 
      ON 
-        orderDetails.productId = products.productId
+        orderdetails.productId = products.productId
      WHERE 
-        orderDetails.orderId IN (
+        orderdetails.orderId IN (
           SELECT
             orders.id
           FROM 

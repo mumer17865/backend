@@ -1,5 +1,5 @@
 const orders = require('../models/orders');
-const orderDetails = require('../models/orderDetails');
+const orderdetails = require('../models/orderdetails');
 const sequelize = require('../sequelize');
 
 exports.checkout = async (req, res) => {
@@ -32,14 +32,14 @@ exports.checkout = async (req, res) => {
       subTotal: item.total
     }));
 
-    const createdEntries = await orderDetails.bulkCreate(orderDetailsArray, { transaction });
+    const createdEntries = await orderdetails.bulkCreate(orderDetailsArray, { transaction });
 
     await transaction.commit();
 
     res.send({
       success: true,
       data: {
-        orderDetails: createdEntries,
+        orderdetails: createdEntries,
         orders: createdOrder
       },
       message: 'Order placed successfully!'
