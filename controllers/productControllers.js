@@ -1,7 +1,7 @@
-const Product = require('../models/product');
+const products = require('../models/products');
 
 exports.getAllProducts = (req, res) => {
-  Product.findAll()
+  products.findAll()
     .then(result => {
       res.json(result);
     })
@@ -12,7 +12,7 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.getProductById = (req, res) => {
-  Product.findAll({
+  products.findAll({
     where: {
       productId: req.params.id
     }

@@ -1,5 +1,5 @@
-const Order = require('../models/order');
-const OrderDetails = require('../models/orderDetails');
+const orders = require('../models/orders');
+const orderDetails = require('../models/orderdetails');
 const sequelize = require('../sequelize');
 
 exports.checkout = async (req, res) => {
@@ -20,7 +20,7 @@ exports.checkout = async (req, res) => {
       shippingAddress: customerInfo[0].address,
     };
     
-    const createdOrder = await Order.create(orderData, { transaction });
+    const createdOrder = await orders.create(orderData, { transaction });
 
     const createdOrderId = createdOrder.dataValues?.id;
 
@@ -32,7 +32,7 @@ exports.checkout = async (req, res) => {
       subTotal: item.total
     }));
 
-    const createdEntries = await OrderDetails.bulkCreate(orderDetailsArray, { transaction });
+    const createdEntries = await orderDetails.bulkCreate(orderDetailsArray, { transaction });
 
     await transaction.commit();
 
@@ -40,7 +40,7 @@ exports.checkout = async (req, res) => {
       success: true,
       data: {
         orderDetails: createdEntries,
-        order: createdOrder
+        orders: createdOrder
       },
       message: 'Order placed successfully!'
     });

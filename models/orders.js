@@ -1,9 +1,9 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
 
-const Data = require('./data');
+const data = require('./data');
 
-const Order = sequelize.define('Order', {
+const orders = sequelize.define('orders', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -12,7 +12,7 @@ const Order = sequelize.define('Order', {
   userId: {
     type: DataTypes.INTEGER,
     references: {
-      model: Data,
+      model: data,
       key: 'id',
     },
     onDelete: 'SET NULL',
@@ -42,4 +42,4 @@ const Order = sequelize.define('Order', {
   timestamps: true,
 });
 
-module.exports = Order;
+module.exports = orders;
