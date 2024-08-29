@@ -5,22 +5,22 @@ const getHistory = (req, res) => {
   sequelize.query(
     `SELECT 
         orderdetails.*, 
-        Products.image, 
-        Products.productName
+        products.image, 
+        products.productName
      FROM 
         orderdetails
      INNER JOIN 
-        Products 
+        products 
      ON 
-        orderdetails.productId = Products.productId
+        orderdetails.productId = products.productId
      WHERE 
         orderdetails.orderId IN (
           SELECT
-            Orders.id
+            orders.id
           FROM 
-            Orders
+            orders
           WHERE 
-            Orders.userId = :userId )`,
+            orders.userId = :userId )`,
     {
       replacements: { userId: req.params.id },
       type: sequelize.QueryTypes.SELECT
