@@ -4,7 +4,7 @@ const sequelize = require('../sequelize');
 const orders = require('./orders');
 const products = require('./products');
 
-const orderdetails = sequelize.define('orderdetails', {
+const orderDetails = sequelize.define('orderDetails', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -45,10 +45,10 @@ const orderdetails = sequelize.define('orderdetails', {
 });
 
 // Associations
-orders.hasMany(orderdetails, { foreignKey: 'orderId' });
-orderdetails.belongsTo(orders, { foreignKey: 'orderId' });
+orders.hasMany(orderDetails, { foreignKey: 'orderId' });
+orderDetails.belongsTo(orders, { foreignKey: 'orderId' });
 
-products.hasMany(orderdetails, { foreignKey: 'productId' });
-orderdetails.belongsTo(products, { foreignKey: 'productId' });
+products.hasMany(orderDetails, { foreignKey: 'productId' });
+orderDetails.belongsTo(products, { foreignKey: 'productId' });
 
-module.exports = orderdetails;
+module.exports = orderDetails;

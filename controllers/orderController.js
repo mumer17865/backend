@@ -1,5 +1,5 @@
 const orders = require('../models/orders');
-const orderDetails = require('../models/orderdetails');
+const orderDetails = require('../models/orderDetails');
 const sequelize = require('../sequelize');
 
 exports.checkout = async (req, res) => {
