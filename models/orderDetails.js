@@ -13,7 +13,7 @@ const orderDetails = sequelize.define('orderDetails', {
   orderId: {
     type: DataTypes.INTEGER,
     references: {
-      model: Order,
+      model: order,
       key: 'id',
     },
     onDelete: 'SET NULL',
@@ -22,7 +22,7 @@ const orderDetails = sequelize.define('orderDetails', {
   productId: {
     type: DataTypes.INTEGER,
     references: {
-      model: Product,
+      model: product,
       key: 'productId',  
     },
     onDelete: 'SET NULL',
