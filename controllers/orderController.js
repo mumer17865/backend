@@ -24,7 +24,7 @@ exports.checkout = async (req, res) => {
 
     const createdOrderId = createdOrder.dataValues?.id;
 
-    const orderDetailsArray = cartItems.map(item => ({
+    const orderdetailsArray = cartItems.map(item => ({
       orderId: createdOrderId,
       productId: item.productId,
       unitPrice: item.price,
@@ -32,7 +32,7 @@ exports.checkout = async (req, res) => {
       subTotal: item.total
     }));
 
-    const createdEntries = await orderdetails.bulkCreate(orderDetailsArray, { transaction });
+    const createdEntries = await orderdetails.bulkCreate(orderdetailsArray, { transaction });
 
     await transaction.commit();
 
