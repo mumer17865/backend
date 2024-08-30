@@ -1,5 +1,5 @@
 const orders = require('../models/orders');
-const orderdetails = require('../models/orderdetails');
+const orderDetails = require('../models/orderDetails');
 const sequelize = require('../sequelize');
 
 exports.checkout = async (req, res) => {
@@ -24,7 +24,7 @@ exports.checkout = async (req, res) => {
 
     const createdOrderId = createdOrder.dataValues?.id;
 
-    const orderdetailsArray = cartItems.map(item => ({
+    const orderDetailsArray = cartItems.map(item => ({
       orderId: createdOrderId,
       productId: item.productId,
       unitPrice: item.price,
@@ -32,14 +32,14 @@ exports.checkout = async (req, res) => {
       subTotal: item.total
     }));
 
-    const createdEntries = await orderdetails.bulkCreate(orderdetailsArray, { transaction });
+    const createdEntries = await orderDetails.bulkCreate(orderDetailsArray, { transaction });
 
     await transaction.commit();
 
     res.send({
       success: true,
       data: {
-        orderdetails: createdEntries,
+        orderDetails: createdEntries,
         orders: createdOrder
       },
       message: 'Order placed successfully!'
