@@ -28,7 +28,7 @@ router.post("/create-order", async (req, res) => {
     const customer = {
         name: info[0].name,
         email: info[0].email,
-      country_code: "92",
+        country_code: "92",
         phone_number: info[0].contact,
         customer_address:
       {
@@ -64,5 +64,27 @@ router.post("/create-order", async (req, res) => {
     res.status(500).send("Order creation failed");
   }
 });
+
+
+
+router.post('/order-status', async (req, res) => {
+  try {
+    const { orderRef } = req.body;
+
+    if (!orderRef) {
+      return res.status(400).json({ error: 'Missing order reference' });
+    }
+
+    let order = bsecure.OrderStatus;
+    order.setOrderRef(orderRef);
+    let result = await order.getStatus();
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error fetching order status:', error);
+    res.status(500).json({ error: 'Failed to fetch order status' });
+  }
+});
+
 
 module.exports = router;
