@@ -18,10 +18,10 @@ exports.register = async (req, res) => {
         ...req.body,
         pass: hash,
       };
-      const data2 = await Data.create(data1);
+      const data = await Data.create(data1);
       res.send({
         success: true,
-        data2: data2,
+        data: data,
         data1: {
           notuserCreated: false,
         },
