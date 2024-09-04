@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { generateToken } = require('../utils/auth');
-const Data1 = require('../models/data');
+const Data = require('../models/data');
 const { QueryTypes } = require('sequelize');
 const sequelize = require('../sequelize');
 
@@ -18,10 +18,10 @@ exports.register = async (req, res) => {
         ...req.body,
         pass: hash,
       };
-      const data = await Data1.create(data1);
+      const data2 = await Data.create(data1);
       res.send({
         success: true,
-        data: data,
+        data2: data2,
         data1: {
           notuserCreated: false,
         },
@@ -46,7 +46,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { uname, pass } = req.body;
-    const user = await Data1.findOne({ where: { uname } });
+    const user = await Data.findOne({ where: { uname } });
     if (!user) {
       res.json({ success: false });
       return;
