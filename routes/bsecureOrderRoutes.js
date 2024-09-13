@@ -18,13 +18,12 @@ router.post("/create-order", async (req, res) => {
         name: item.productName,  // Ensure productName is correct and exists
       sku: (item.productId + 1000).toString(),
       quantity: item.quantity,
-        price: item.price,  // Ensure price is correct and greater than 0
+        price: item.price/item.quantity,  // Ensure price is correct and greater than 0
         sale_price: item.price,  // Ensure sale_price is correct and greater than 0
       image: item.image,
       description: item.desc,
       short_description: item.desc,
     }));
-    console.log(products[0].id);
     const customer = {
         name: info[0].name,
         email: info[0].email,
@@ -40,10 +39,9 @@ router.post("/create-order", async (req, res) => {
         zip_code: "75600",
       },
     };
-    console.log(customer);
       order.setOrderId(Math.random()*10000);
     order.setCharges({
-      sub_total: subTotal,
+      sub_total: grandTotal,
       discount: 0,
       total: grandTotal,
     });
@@ -57,7 +55,6 @@ router.post("/create-order", async (req, res) => {
 
     const result = await order.createOrder();
     const result1 = result.body.checkout_url;
-    console.log(result);
     res.json({ result1 });
   } catch (error) {
     console.error("Order Creation Error:", error);
